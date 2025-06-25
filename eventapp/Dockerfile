@@ -1,12 +1,6 @@
-FROM amazoncorretto:24 as builder
+FROM gradle:8.14.0-jdk24 AS builder
 WORKDIR /app
-
-RUN yum update -y && \
-    yum install -y findutils && \
-    yum clean all
-
 COPY . /app
-RUN chmod +x ./gradlew
 RUN ./gradlew dependencies --no-daemon
 RUN ./gradlew bootJar --no-daemon
 
